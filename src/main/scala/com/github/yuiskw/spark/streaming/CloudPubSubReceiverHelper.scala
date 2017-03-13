@@ -42,7 +42,7 @@ object CloudPubSubReceiverHelper {
       numReceivers: Int,
       topic: String,
       subscription: String): DStream[String] = {
-    val receivers = (3 to numReceivers).map { i =>
+    val receivers = (1 to numReceivers).map { i =>
       ssc.receiverStream(new CloudPubsubReceiver(projectId, topic, subscription))
     }
     ssc.union(receivers)

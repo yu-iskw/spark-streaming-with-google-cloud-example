@@ -6,7 +6,7 @@ scalaVersion := "2.11.8"
 
 crossScalaVersions := Seq("2.10.6", "2.11.8")
 
-sparkVersion := "2.1.0"
+sparkVersion := "2.0.1"
 
 test in assembly := {}
 
@@ -30,7 +30,7 @@ javaOptions ++= Seq("-Xmx2G", "-XX:MaxPermSize=256m")
 libraryDependencies ++= Seq(
   "org.json4s" % "json4s-native_2.11" % "3.5.0",
   "org.hamcrest" % "hamcrest-all" % "1.3",
-  "com.google.cloud" % "google-cloud-pubsub" % "0.9.4-alpha",
+  "com.google.cloud" % "google-cloud-pubsub" % "0.8.3-alpha",
   "com.google.apis" % "google-api-services-pubsub" % "v1-rev7-1.20.0",
   "com.google.cloud" % "google-cloud-datastore" % "0.9.3-beta" excludeAll (
     ExclusionRule(organization = "com.fasterxml.jackson.core", name = "jackson-core")

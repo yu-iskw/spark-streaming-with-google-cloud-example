@@ -15,28 +15,29 @@
  * limitations under the License.
  */
 
-package com.github.yuiskw.spark.streaming
+package com.github.yuiskw
 
 import scala.util.Random
 
-import com.google.cloud.datastore.{Datastore, Entity}
+import com.google.gson.GsonBuilder
 import org.joda.time.{DateTime, DateTimeZone}
-import org.json4s.DefaultFormats
-import org.json4s.jackson.Serialization
 
-case class EventLog(userId: Int, eventId: String, ts: DateTime) {
 
-  def this(userId: Int, eventId: String) = this(userId, eventId, DateTime.now(DateTimeZone.UTC))
+class EventLog(val userId: Int, val eventId: String, val timestamp: Long) extends Serializable {
+
+  def this(userId: Int, eventId: String) =
+    this(userId, eventId, DateTime.now(DateTimeZone.UTC).getMillis)
 
   def toJson: String = {
-    implicit val formats = DefaultFormats
-    Serialization.write(this)
+    val gson = new GsonBuilder().serializeNulls().create()
+    gson.toJson(this)
   }
 }
 
 object EventLog {
 
   val EVENT_TYPES = Seq("view", "like", "comment")
+
 
   def fromJson(json: String): EventLog = {
     import org.json4s._
@@ -46,11 +47,8 @@ object EventLog {
   }
 
   def getDummy(maxUserId: Int = 10): EventLog = {
-    val userId = new Random().nextInt(maxUserId)
+    val userId = new Random().nextInt(maxUserId) + 1
     val eventId = EVENT_TYPES.apply(new Random().nextInt(3))
     new EventLog(userId, eventId)
-  }
-
-  def toEntity(datastore: Datastore, eventLog: EventLog): Entity = {
   }
 }

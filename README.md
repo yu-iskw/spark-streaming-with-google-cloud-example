@@ -43,7 +43,7 @@ We data scientist can focus on implementing logics with Spark Streaming.
     ```
 5. Send Pub/Sub messages
   - ```
-    ./bin/send-pubsub-messages.sh
+    ./bin/send-pubsub-messages.sh $GOOGLE_PROJECT_ID $PUBSUB_TOPIC
     ```
 
 Please make sure to delete a Pub/Sub topic and a Dataproc cluster.
